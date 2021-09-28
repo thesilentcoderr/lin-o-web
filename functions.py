@@ -2,9 +2,9 @@ import os
 
 def query(cmd):
     if "date" in cmd:
-        op = dt()
+        op = date()
     return op
 
-def dt():
+def date():
     now = os.date()
     return now
