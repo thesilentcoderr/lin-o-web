@@ -1,5 +1,5 @@
 # lin-o-web
-/Create a vars.json file paste the following data
+Create a vars.json file paste the following data
 ```{
     "variables":
     {
