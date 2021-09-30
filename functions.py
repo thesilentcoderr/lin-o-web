@@ -6,5 +6,5 @@ def query(cmd):
     return op
 
 def date():
-    now = os.date()
+    now = os.system()
     return now
