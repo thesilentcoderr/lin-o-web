@@ -1,6 +1,6 @@
 import os
 from subprocess import getstatusoutput as spo
-
+import subprocess as sp
 def query(cmd):
     if "date" in cmd:
         op = date()
@@ -13,31 +13,37 @@ def date():
 
 #User Administration
 def create_user(username):
-    now=os.system("useradd "+username)
+    now=sp.getoutput("useradd "+username)
     return now
 def currentuser():
-    now=os.system("whoami")
+    now=sp.getoutput("whoami")
     return now
 def createuser_nologin(username):
-    now=os.system("useradd -s /sbin/sh "+username)   
+    now=sp.getoutput("useradd -s /sbin/sh "+username)   
     return now 
 def users():
-    now=os.system("cat /etc/shadow")
+    now=sp.getoutput("cat /etc/shadow")
     return now
 def user_info():
     try:
-        now=os.system("cat /etc/passwd")
+        now=sp.getoutput("cat /etc/passwd")
         return now
     except:
-        print("*****Access Denied !!*****")
-        print("*****You must be the root user to perform this action*****")
+        msg="*****Access Denied !!*****You must be the root user to perform this action*****"
+        now=sp.getoutput("echo "+msg)
+        return now
+
 def login_as_user(username):
     try:
-        now=os.system("su "+username)
+        now=sp.getoutput("su "+username)
         return now
     except:
-        print("*****User does not exist or the user has no Shell*****")
-
+        msg="*****User does not exist or the user has no Shell*****"
+        now=sp.getoutput("echo "+msg)
+        return now
+    
+    
+    
 
 # File System
 def show_file(path,file_name):
