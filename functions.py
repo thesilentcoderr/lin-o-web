@@ -120,3 +120,103 @@ def c_compiler:
     o=sp.getoutput("sudo yum install java")
     if "Complete" in o:
         print("Successfully Installed")
+        
+      
+        
+        
+        
+ #Baisc Linux commands
+def ifconfig():
+    output=sp.getoutput("ifconfig")
+    return output
+
+                
+ def history():
+    output=sp.getoutput("history")
+    return output
+        
+
+def pwd():
+    output=sp.getoutput("pwd")
+    return output
+    
+    
+def cal():
+     output=sp.getoutput("cal")
+     return output
+    
+ #prompts for y/n
+def rm_file(file_name):
+    try:
+        output=sp.getoutput(f'rm {file_name}')
+    except:
+        output="rm: cannot remove '{file_name}': No such file or directory"      
+    return output   
+        
+        
+def head(file_name):
+    try:
+        output=sp.getoutput(f'head {file_name}')
+    except:
+        output="head: cannot open '{file_name}' for reading: No such file or directory"
+    return output   
+      
+    
+def tail(file_name):
+    try:
+        output=sp.getoutput(f'tail {file_name}')
+    except:
+        output="tail: cannot open '{file_name}' for reading: No such file or directory"
+    return output   
+
+
+def man(cmd):
+     try:
+        output=sp.getoutput(f'man {cmd}')
+     except:
+        output="No manual entry for {cmd}"
+     return output   
+    
+
+def id():
+    output=sp.getoutput("id")
+    return output
+
+
+def wc(file_name):
+    try:
+        output=sp.getoutput(f'wc {file_name}')
+    except:
+        output="wc: {file_name}: No such file or directory"
+    return output   
+
+
+def sort(file_name):
+    try:
+        output=sp.getoutput(f'sort {file_name}')
+    except:
+        output="sort: cannot read: {file_name}: No such file or directory"
+    return output   
+
+
+def sleep(time):
+    output=sp.getoutput(f'sleep {time}')
+    return output
+                        
+    
+    
+
+
+
+    
+        
+        
+    
+    
+    
+ 
+
+
+
+    
+
