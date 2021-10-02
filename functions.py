@@ -94,3 +94,29 @@ def list_dir(path):
     except:
         msg = "An error occured, Please try again !!"
     return msg
+
+#Installation of packages
+def httpd:
+    o=sp.getoutput("sudo yum install httpd")
+    if "Complete" in o:
+        print("Successfully Installed")
+        
+def python3:
+    o=sp.getoutput("sudo yum install python3")
+    if "Complete" in o:
+        print("Successfully Installed")
+   
+def python2:
+    o=sp.getoutput("sudo yum install python2")
+    if "Complete" in o:
+        print("Successfully Installed")
+       
+def c_compiler:
+    o=sp.getoutput("sudo yum install gcc")
+    if "Complete" in o:
+        print("Successfully Installed") 
+        
+ def java:
+    o=sp.getoutput("sudo yum install java")
+    if "Complete" in o:
+        print("Successfully Installed")
