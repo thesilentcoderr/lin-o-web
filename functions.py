@@ -96,27 +96,27 @@ def list_dir(path):
     return msg
 
 #Installation of packages
-def httpd:
+def httpd():
     o=sp.getoutput("sudo yum install httpd")
     if "Complete" in o:
         print("Successfully Installed")
         
-def python3:
+def python3():
     o=sp.getoutput("sudo yum install python3")
     if "Complete" in o:
         print("Successfully Installed")
    
-def python2:
+def python2():
     o=sp.getoutput("sudo yum install python2")
     if "Complete" in o:
         print("Successfully Installed")
        
-def c_compiler:
+def c_compiler():
     o=sp.getoutput("sudo yum install gcc")
     if "Complete" in o:
         print("Successfully Installed") 
         
- def java:
+ def java():
     o=sp.getoutput("sudo yum install java")
     if "Complete" in o:
         print("Successfully Installed")
