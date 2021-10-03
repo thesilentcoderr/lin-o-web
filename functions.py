@@ -124,7 +124,7 @@ def c_compiler():
     else:
         print("Not able to install")
         
- def java():
+def java():
     o=sp.getoutput("sudo yum install java")
     if "Complete" in o:
         print("Successfully Installed")
@@ -141,7 +141,7 @@ def ifconfig():
     return output
 
                 
- def history():
+def history():
     output=sp.getoutput("history")
     return output
         
