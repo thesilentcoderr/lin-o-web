@@ -100,26 +100,36 @@ def httpd():
     o=sp.getoutput("sudo yum install httpd")
     if "Complete" in o:
         print("Successfully Installed")
+    else:
+        print("Not able to install")
         
 def python3():
     o=sp.getoutput("sudo yum install python3")
     if "Complete" in o:
         print("Successfully Installed")
+    else:
+        print("Not able to install")        
    
 def python2():
     o=sp.getoutput("sudo yum install python2")
     if "Complete" in o:
         print("Successfully Installed")
+    else:
+        print("Not able to install")    
        
 def c_compiler():
     o=sp.getoutput("sudo yum install gcc")
     if "Complete" in o:
-        print("Successfully Installed") 
+        print("Successfully Installed")
+    else:
+        print("Not able to install")
         
  def java():
     o=sp.getoutput("sudo yum install java")
     if "Complete" in o:
         print("Successfully Installed")
+    else:
+        print("Not able to install")
         
       
         
