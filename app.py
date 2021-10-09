@@ -55,7 +55,7 @@ def login():
             return render_template('login.html')
         cur.close()
         return redirect('/')
-    return render_template("test_login.html")
+    return render_template("login.html")
 
 @app.route("/user/register", methods=['GET', 'POST'])
 def register():
