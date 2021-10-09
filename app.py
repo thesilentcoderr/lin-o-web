@@ -4,29 +4,29 @@ import os
 from werkzeug.utils import  secure_filename
 from werkzeug.security import generate_password_hash as gen, check_password_hash as check
 import functions
-app = Flask(__name__)
+app = Flask(__name__,template_folder="templates")
 
 
-with open('vars.json','r') as v:
-    variable = json.load(v)
+# with open('vars.json','r') as v:
+#     variable = json.load(v)
     
-var = variable["variables"]
-db_keeps = variable["sql_conf"]
+# var = variable["variables"]
+# db_keeps = variable["sql_conf"]
 
 
 
-mysql = MySQL(app)
-# MySQL Configuration
-app.config['MYSQL_HOST'] = db_keeps["mysql_host"]
-app.config['MYSQL_USER'] = db_keeps["mysql_user"]
-app.config['MYSQL_PASSWORD'] = db_keeps["mysql_password"]
-app.config['MYSQL_DB'] = db_keeps["mysql_db"]
-app.config['MYSQL_PORT'] = db_keeps['mysql_port']
+# mysql = MySQL(app)
+# # MySQL Configuration
+# app.config['MYSQL_HOST'] = db_keeps["mysql_host"]
+# app.config['MYSQL_USER'] = db_keeps["mysql_user"]
+# app.config['MYSQL_PASSWORD'] = db_keeps["mysql_password"]
+# app.config['MYSQL_DB'] = db_keeps["mysql_db"]
+# app.config['MYSQL_PORT'] = db_keeps['mysql_port']
 app.secret_key = os.urandom(24)
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template('user_login.html')
 
 @app.route("/user/login",methods=['GET', 'POST'])
 def login():
@@ -48,14 +48,14 @@ def login():
             else:
                 cur.close()
                 flash('Wrong Password!! Please Check Again.', 'danger')
-                return render_template('login.html')
+                return render_template('test_login.html')
         else:
             cur.close()
             flash('User Does Not Exist!! Please Enter Valid Username.', 'danger')
             return render_template('login.html')
         cur.close()
         return redirect('/')
-    return render_template("login.html")
+    return render_template("test_login.html")
 
 @app.route("/user/register", methods=['GET', 'POST'])
 def register():
@@ -99,4 +99,4 @@ def logout():
     return redirect('/')
     
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
