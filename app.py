@@ -4,29 +4,29 @@ import os
 from werkzeug.utils import  secure_filename
 from werkzeug.security import generate_password_hash as gen, check_password_hash as check
 import functions
-app = Flask(__name__,template_folder="templates")
+app = Flask(__name__)
 
 
-# with open('vars.json','r') as v:
-#     variable = json.load(v)
+with open('vars.json','r') as v:
+    variable = json.load(v)
     
-# var = variable["variables"]
-# db_keeps = variable["sql_conf"]
+var = variable["variables"]
+db_keeps = variable["sql_conf"]
 
 
 
-# mysql = MySQL(app)
-# # MySQL Configuration
-# app.config['MYSQL_HOST'] = db_keeps["mysql_host"]
-# app.config['MYSQL_USER'] = db_keeps["mysql_user"]
-# app.config['MYSQL_PASSWORD'] = db_keeps["mysql_password"]
-# app.config['MYSQL_DB'] = db_keeps["mysql_db"]
-# app.config['MYSQL_PORT'] = db_keeps['mysql_port']
+mysql = MySQL(app)
+# MySQL Configuration
+app.config['MYSQL_HOST'] = db_keeps["mysql_host"]
+app.config['MYSQL_USER'] = db_keeps["mysql_user"]
+app.config['MYSQL_PASSWORD'] = db_keeps["mysql_password"]
+app.config['MYSQL_DB'] = db_keeps["mysql_db"]
+app.config['MYSQL_PORT'] = db_keeps['mysql_port']
 app.secret_key = os.urandom(24)
 
 @app.route("/")
 def home():
-    return render_template('user_login.html')
+    return redirect("/user/login")
 
 @app.route("/user/login",methods=['GET', 'POST'])
 def login():
@@ -38,17 +38,16 @@ def login():
         users = cur.execute("SELECT * FROM user WHERE email_id=%s;", ([email]))
         if users > 0:
             user = cur.fetchone()
-            pass_check = check(user[-2], password)
+            pass_check = check(user[3], password)
             if pass_check:
                 session['logged_in'] = True
-                session['user'] = user[2]
-                session['full_name'] = user[1]
-                session['id'] = user[0]
+                session['full_name'] = user[4]
+                session['id'] = user[1]
                 flash(f"Welcome {session['full_name']}!! Your Login is Successful", 'success')
             else:
                 cur.close()
                 flash('Wrong Password!! Please Check Again.', 'danger')
-                return render_template('test_login.html')
+                return render_template('login.html')
         else:
             cur.close()
             flash('User Does Not Exist!! Please Enter Valid Username.', 'danger')
@@ -67,13 +66,14 @@ def register():
         password = gen(form['pass'])
         cur = mysql.connection.cursor()
         users = cur.execute("SELECT * FROM user;")
-        if users>0:
+        if users > 0:
             all_users = cur.fetchall()
             for user in all_users:
-                if (user[2] == email) or (user[3] == number):
+                if (user[2] == email) or (user[5] == number):
                     flash("User Already Exists!, Please Login...")
                     return redirect('/user/customer_login')
-        cur.execute("INSERT INTO user (full_name,email_id,password,contact) values (%s,%s,%s,%s);", (name,email,password,number))
+        cur.execute("INSERT INTO user (name,email_id,number,password) values (%s,%s,%s,%s);", (name,email,number,password))
+        
         mysql.connection.commit()
         cur.close()
         return redirect('/user/login')
@@ -91,8 +91,7 @@ def takecmd():
 @app.route("/logout")
 def logout():
     if 'user' in session:
-        session['logged_in'] = False
-        session.pop('user') 
+        session['logged_in'] = False 
         session.pop('full_name') 
         session.pop('id')
         flash('User Logged Out','success')
