@@ -95,42 +95,76 @@ def list_dir(path):
         msg = "An error occured, Please try again !!"
     return msg
 
-#Installation of packages
+#Installation and Uninstallation of packages
 def httpd():
-    o=sp.getoutput("sudo yum install httpd")
+    o=sp.getoutput("sudo yum install httpd -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")
         
 def python3():
-    o=sp.getoutput("sudo yum install python3")
+    o=sp.getoutput("sudo yum install python3 -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")        
    
 def python2():
-    o=sp.getoutput("sudo yum install python2")
+    o=sp.getoutput("sudo yum install python2 -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")    
        
 def c_compiler():
-    o=sp.getoutput("sudo yum install gcc")
+    o=sp.getoutput("sudo yum install gcc -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")
         
 def java():
-    o=sp.getoutput("sudo yum install java")
+    o=sp.getoutput("sudo yum install java -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")
+#Uninstallation
+def uninstall_httpd():
+    o=sp.getoutput("sudo yum remove httpd -y")
+    if "Complete" in o:
+        print("Successfully Uninstalled")
+    else:
+        print("Not able to uninstall")
         
+def uninstall_python3():
+    o=sp.getoutput("sudo yum remove python3 -y")
+    if "Complete" in o:
+        print("Successfully Uninstalled")
+    else:
+        print("Not able to uninstall")        
+   
+def uninstall_python2():
+    o=sp.getoutput("sudo yum remove python2 -y")
+    if "Complete" in o:
+        print("Successfully Uninstalled")
+    else:
+        print("Not able to uninstall")    
+       
+def uninstall_c_compiler():
+    o=sp.getoutput("sudo yum remove gcc -y")
+    if "Complete" in o:
+        print("Successfully Uninstalled")
+    else:
+        print("Not able to uninstall")
+        
+def uninstall_java():
+    o=sp.getoutput("sudo yum remove java -y")
+    if "Complete" in o:
+        print("Successfully Uninstalled")
+    else:
+        print("Not able to uninstall")
       
         
         
@@ -212,21 +246,3 @@ def sort(file_name):
 def sleep(time):
     output=sp.getoutput(f'sleep {time}')
     return output
-                        
-    
-    
-
-
-
-    
-        
-        
-    
-    
-    
- 
-
-
-
-    
-

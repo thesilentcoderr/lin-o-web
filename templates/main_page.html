@@ -16,7 +16,7 @@
     <body>
         <style>
             body{
-                background:#ddd;
+                background:black;
             }
             .form-control-borderless {
                 border: none;
@@ -28,21 +28,58 @@
                 box-shadow: none;
             }
 
-            .button3 {
-                background-color:#198754 ; 
-                 color: whitesmoke; 
-                border: 2px solid #198754;
-                padding: 2%;
-                margin-right: 5%;
+            
+            textarea {
+        background: rgba(13, 20, 13, 0.575);
+        border: 2px solid #198754;
+        border-radius: 15px;
+        -webkit-border-radius: 15px;
+        resize: none;
+        color: azure;
+      }
+      .dropbtn {
+  background-color: #198754;
+  color: white;
+  padding: 5%;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-right: 5%;
                 padding-left: 4.35%;
                 padding-right: 4.35%;
-            }
-           
+}
 
-            .button3:hover {
-                 background-color: rgb(25, 219, 193);
-                color: white;
-            }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
         </style>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <div class="container">
@@ -70,20 +107,87 @@
                 
             </div>
             <br>
-                <div id="textarea">
-                    <textarea disabled id="output" name="output" rows="18" cols="173.75 %">
-                    Your output will be displayed here.
-                    </textarea>
-                  </div>
-                  <br>
+                
+                  
                 <div class="buttons">
                     
-                    <button class="button button3">Basic Linux Commands</button>
-                    <button class="button button3">File Management</button>
-                    <button class="button button3">User Management</button>
-                    <button class="button button3">Package Installation</button>
+                    <div class="dropdown">
+                        <button class="dropbtn">Basic Linux Commands</button>
+                        <div class="dropdown-content">
+                        <a href="#">Date</a>
+                        <a href="#">IP Address</a>
+                        <a href="#">History</a>
+                        <a href="#">Present Working Directory</a>
+                        <a href="#">Calendar</a>
+                        <a href="#">Head of File</a>
+                        <a href="#">Tail of File</a>
+                        <a href="#">Manual</a>
+                        <a href="#">Word Count</a>
+                        <a href="#">Sort</a>
+                        <a href="#">Sleep</a>
+
+                        </div>
+                      </div>
+
+                      <div class="dropdown">
+                        <button class="dropbtn">File Management</button>
+                        <div class="dropdown-content">
+                        <a href="#">Show Files</a>
+                        <a href="#">Create Empty Files</a>
+                        <a href="#">See Files(Including Hidden Files)</a>
+                        <a href="#">Create Directory</a>
+                        <a href="#">Remove Directory</a>
+                        
+
+                        </div>
+                      </div>
+                      
+                      <div class="dropdown">
+                        <button class="dropbtn">User Management</button>
+                        <div class="dropdown-content">
+                        <a href="#">Add User</a>
+                        <a href="#">Current User Information</a>
+                        <a href="#">Create User without Shell</a>
+                        <a href="#">See All Users</a>
+                        <a href="#">User Information (Only For Admin)</a>
+                        <a href="#">Login as User (User Must be Present)</a>
+                       
+
+                        </div>
+                      </div>
+
+                      <div class="dropdown">
+                        <button class="dropbtn">Package Installation</button>
+                        <div class="dropdown-content">
+                        <a href="#">Install Apache Web Server</a>
+                        <a href="#">Install Python3</a>
+                        <a href="#">Install Python2</a>
+                        <a href="#">Install GCC Compiler</a>
+                        <a href="#">Install Java</a>
+                        <a href="#">Uninstall Apache Web Server</a>
+                        <a href="#">Uninstall Python3</a>
+                        <a href="#">Uninstall Python2</a>
+                        <a href="#">Uninstall GCC Compiler</a>
+                        <a href="#">Uninstall Java</a>
+                  
+                        </div>
+                      </div>
+                      <br><br><br>
+                      <div id="textarea">
+                        <textarea disabled id="output" name="output" rows="18" cols="173.75 %">
+                        Your output will be displayed here.
+                        </textarea>
+                      </div>
                 </div>
         </div>
+
+
+
+
+
+        
         
     </body>
+
+    
 </html>
