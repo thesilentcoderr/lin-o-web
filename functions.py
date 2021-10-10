@@ -131,7 +131,7 @@ def java():
     else:
         print("Not able to install")
 #Uninstallation
- def uninstall_httpd():
+def uninstall_httpd():
     o=sp.getoutput("sudo yum remove httpd -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
