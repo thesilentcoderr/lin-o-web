@@ -4,37 +4,106 @@ import subprocess as sp
 def query(cmd,id,args):
     if "date" in cmd:
         output = date(id,args)
-    elif "apache" in cmd or "server" in cmd or "httpd" in cmd and "install":
+    elif "installapache" in cmd:
         output =httpd(id,args)
+    elif "installpy3" in cmd:
+        output = python3(id,args)
+    elif "installpy2" in cmd:
+        output = python2(id,args)
+    elif "installgcc" in cmd:
+        output = c_compiler(id,args)
+    elif "installjava" in cmd:
+        output = java(id,args)
+    elif "uninstallapache" in cmd:
+        output = uninstall_httpd(id,args)
+    elif "uninstallpy3" in cmd:
+        output = uninstall_python3(id,args)
+    elif "uninstallpy2" in cmd:
+        output = uninstall_python2(id,args)
+    elif "uninstallgcc" in cmd:
+        output = uninstall_c_compiler(id,args)
+    elif "uninstalljava" in cmd:
+        output = uninstall_java(id,args)
+    elif "ifconfig" in cmd:
+        output = ifconfig()
+    elif "history" in cmd:
+        output = history(id,args)
+    elif "pwd" in cmd:
+        output = pwd(id,args)
+    elif "cal" in cmd:
+        output = cal(id,args)
+    elif "head" in cmd:
+        output = head(id,args)
+    elif "tail" in cmd:
+        output = tail(id,args)
+    elif "wc" in cmd:
+        output = wc(id,args)
+    elif "sort" in cmd:
+        output = sort(id,args)
+    elif "sleep" in cmd:
+        output = sleep(id,args)
+    elif "ls" in cmd:
+        output = list_dir(id,args)
+    elif "touch" in cmd:
+        output=create_file(id,args)
+    elif "hiddenfile" in cmd:
+        output = list_dir_h(id,args)
+    elif "mkdir" in cmd:
+        output = create_dir(id,args)
+    elif "rmdir" in cmd:
+        output = delete_dir(id,args)
+    elif "adduser" in cmd:
+        output = create_user(id,args)
+    elif "id" in cmd:
+        output = currentuser(id,args)
+    elif "addusernologin" in cmd:
+        output = createuser_nologin(id,args)
+    elif "shadow" in cmd:
+        output = users(id,args)
+    elif "passwd" in cmd:
+        output = user_info(id,args)
+    elif "loginuser" in cmd:
+        output = login_as_user(id,args)
+     
+     
+     
+        
     
     return output
 
 
 #User Administration
-def create_user(username):
-    now=sp.getoutput("useradd "+username)
+def create_user(id,args):
+    now=sp.getoutput(f"docker exec {id} useradd {args}")
     return now
-def currentuser():
-    now=sp.getoutput("whoami")
+
+
+def currentuser(id,args):
+    now=sp.getoutput(f"docker exec {id} whoami")
     return now
-def createuser_nologin(username):
-    now=sp.getoutput("useradd -s /sbin/sh "+username)   
+
+
+def createuser_nologin(id,args):
+    now=sp.getoutput(f"docker exec {id} useradd -s /sbin/sh {args}")   
     return now 
-def users():
-    now=sp.getoutput("cat /etc/shadow")
+
+
+def users(id,args):
+    now=sp.getoutput(f"docker exec {id} cat /etc/shadow")
     return now
-def user_info():
+
+def user_info(id,args):
     try:
-        now=sp.getoutput("cat /etc/passwd")
+        now=sp.getoutput(f"docker exec {id} cat /etc/passwd")
         return now
     except:
         msg="*****Access Denied !!*****You must be the root user to perform this action*****"
         now=sp.getoutput("echo "+msg)
         return now
-
-def login_as_user(username):
+    
+def login_as_user(id,args):
     try:
-        now=sp.getoutput("su "+username)
+        now=sp.getoutput(f"docker exec {id} su {args}")
         return now
     except:
         msg="*****User does not exist or the user has no Shell*****"
@@ -45,51 +114,59 @@ def login_as_user(username):
     
 
 # File System
-def show_file(path,file_name):
+def show_file(id,args):
     try:
-        full_path = os.path.join(path,file_name)
-        output = spo(f'cat {full_path}')
+        output = spo(f"docker exec {id} cat {args}")
         if output and (output[0] == 0):
             content = output[1]
         else:
-            this_dir = spo('dir')[1]
-            content = f"No such file in the directory :- {this_dir}"
+            content = f"No such file in the directory :- {args}"
     except:
         content = "An error occured, Please try again !!"
     return content
     
 
-def create_file(path,file_name):
+def create_file(id,args):
     try:
-        full_path = os.path.join(path,file_name)
-        output = spo(f"touch {full_path}")
+        output = spo(f"docker exec {id} touch {args}")
         if output and (output[0] == 0):
             msg = "File Created successfully"
-        else :
-            msg = f"Oops!!, {path} is NOT valid ."
     except:
         msg = "An error occured, Please try again !!"
     return msg
 
-def create_dir(path,dir_name):
+def create_dir(id,args):
     try:
-        full_path = os.path.join(path,dir_name)
-        output = spo(f"mkdir {full_path}")
+        output = spo(f"docker exec {id} mkdir {args}")
         if output and (output[0] == 0):
             msg = "Folder/Directory Created successfully"
-        else :
-            msg = f"Oops!!, {path} is NOT valid ."
     except:
         msg = "An error occured, Please try again !!"
     return msg
 
-def list_dir(path):
+def delete_dir(id,args):
     try:
-        output = spo(f"ls -l {path}")
+        output = spo(f"docker exec {id} rmdir {args}")
+        if output and (output[0] == 0):
+            msg = "Folder/Directory Deleted successfully"
+    except:
+        msg = "An error occured, Please try again !!"
+    return msg
+
+def list_dir(id,args):
+    try:
+        output = spo(f"docker exec {id} ls -l")
         if output and (output[0] == 0):
             msg = output[1]
-        else :
-            msg = f"Oops!!, {path} is NOT valid ."
+    except:
+        msg = "An error occured, Please try again !!"
+    return msg
+
+def list_dir_h(id,args):
+    try:
+        output = spo(f"docker exec {id} ls -a")
+        if output and (output[0] == 0):
+            msg = output[1]
     except:
         msg = "An error occured, Please try again !!"
     return msg
@@ -102,64 +179,64 @@ def httpd(id,args):
     else:
         print("Not able to install")
         
-def python3():
-    o=sp.getoutput("sudo yum install python3 -y")
+def python3(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum install python3 -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")        
    
-def python2():
-    o=sp.getoutput("sudo yum install python2 -y")
+def python2(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum install python2 -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")    
        
-def c_compiler():
-    o=sp.getoutput("sudo yum install gcc -y")
+def c_compiler(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum install gcc -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")
         
-def java():
-    o=sp.getoutput("sudo yum install java -y")
+def java(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum install java -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")
 #Uninstallation
-def uninstall_httpd():
-    o=sp.getoutput("sudo yum remove httpd -y")
+def uninstall_httpd(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum remove httpd -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
         print("Not able to uninstall")
         
-def uninstall_python3():
-    o=sp.getoutput("sudo yum remove python3 -y")
+def uninstall_python3(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum remove python3 -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
         print("Not able to uninstall")        
    
-def uninstall_python2():
-    o=sp.getoutput("sudo yum remove python2 -y")
+def uninstall_python2(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum remove python2 -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
         print("Not able to uninstall")    
        
-def uninstall_c_compiler():
-    o=sp.getoutput("sudo yum remove gcc -y")
+def uninstall_c_compiler(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum remove gcc -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
         print("Not able to uninstall")
         
-def uninstall_java():
-    o=sp.getoutput("sudo yum remove java -y")
+def uninstall_java(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum remove -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
@@ -179,74 +256,66 @@ def ifconfig():
     return output
 
                 
-def history():
-    output=sp.getoutput("history")
+def history(id,config):
+    output=sp.getoutput(f"docker exec {id} history")
     return output
         
 
-def pwd():
-    output=sp.getoutput("pwd")
+def pwd(id,config):
+    output=sp.getoutput(f"docker exec {id} pwd")
     return output
     
     
-def cal():
-     output=sp.getoutput("cal")
+def cal(id,config):
+     output=sp.getoutput(f"docker exec {id} cal")
      return output
     
  #prompts for y/n
-def rm_file(file_name):
+def rm_file(id,args):
     try:
-        output=sp.getoutput(f'rm {file_name}')
+        output=sp.getoutput(f"docker exec {id} rm {args}")
     except:
-        output="rm: cannot remove '{file_name}': No such file or directory"      
+        output="rm: cannot remove '{args}': No such file or directory"      
     return output   
         
         
-def head(file_name):
+def head(id,args):
     try:
-        output=sp.getoutput(f'head {file_name}')
+        output=sp.getoutput(f"docker exec {id} head {args}")
     except:
-        output="head: cannot open '{file_name}' for reading: No such file or directory"
+        output="head: cannot open '{args}' for reading: No such file or directory"
     return output   
       
     
-def tail(file_name):
+def tail(id,args):
     try:
-        output=sp.getoutput(f'tail {file_name}')
+        output=sp.getoutput(f"docker exec {id} tail {args}")
     except:
-        output="tail: cannot open '{file_name}' for reading: No such file or directory"
+        output="tail: cannot open '{args}' for reading: No such file or directory"
     return output   
 
 
-def man(cmd):
-     try:
-        output=sp.getoutput(f'man {cmd}')
-     except:
-        output="No manual entry for {cmd}"
-     return output   
-    
-
-def id():
-    output=sp.getoutput("id")
+def id(id,args):
+    output=sp.getoutput(f"docker exec {id} id")
     return output
 
 
-def wc(file_name):
+def wc(id,args):
     try:
-        output=sp.getoutput(f'wc {file_name}')
+        output=sp.getoutput(f"docker exec {id} wc {args}")
     except:
-        output="wc: {file_name}: No such file or directory"
+        output="wc: {args}: No such file or directory"
     return output   
 
 
-def sort(file_name):
+def sort(id,args):
     try:
-        output=sp.getoutput(f'sort {file_name}')
+        output=sp.getoutput(f"docker exec {id} sort {args}")
     except:
-        output="sort: cannot read: {file_name}: No such file or directory"
+        output="sort: cannot read: {args}: No such file or directory"
     return output   
 
 
-def sleep(time):
-    output=sp.getoutput(f'sleep {time}')
+def sleep(id,args):
+    output=sp.getoutput(f"docker exec {id} sleep {args}")
     return output
