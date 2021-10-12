@@ -82,15 +82,14 @@ def register():
 
     return render_template("register.html")
 
-@app.route("/takecmd/<id>",methods=['GET','POST'])
-def takecmd(id):
-    if 'id' in session:
+@app.route("/takecmd/<cmd>/<args>/<id>",methods=['GET','POST'])
+def takecmd(id,cmd,args):
+    if 'id' in session and session['id'] == id:
         if request.method == 'POST':
-            form = request.form
-            cmd = form['command']
-            output = functions.query(cmd,id)
-            return output
-        return redirect("")
+            # form = request.form
+            # cmd = form['command']
+            output = functions.query(cmd,id,args)
+            return render_template("main_page.html",output=output)
 
 @app.route("/logout")
 def logout():

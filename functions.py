@@ -1,14 +1,10 @@
 import os
 from subprocess import getstatusoutput as spo
 import subprocess as sp
-def query(cmd,id):
+def query(cmd,id,args):
     if "date" in cmd:
-        op = date()
-    return op
-
-def date():
-    now = os.system()
-    return now
+        output = date(id,args)
+    return output
 
 
 #User Administration
@@ -170,6 +166,11 @@ def uninstall_java():
         
         
  #Baisc Linux commands
+def date(id,args):
+    now = spo(f"docker exec {id} date")
+    return now
+
+
 def ifconfig():
     output=sp.getoutput("ifconfig")
     return output
