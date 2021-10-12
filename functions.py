@@ -4,6 +4,9 @@ import subprocess as sp
 def query(cmd,id,args):
     if "date" in cmd:
         output = date(id,args)
+    elif "apache" in cmd or "server" in cmd or "httpd" in cmd and "install":
+        output =httpd(id,args)
+    
     return output
 
 
@@ -92,8 +95,8 @@ def list_dir(path):
     return msg
 
 #Installation and Uninstallation of packages
-def httpd():
-    o=sp.getoutput("sudo yum install httpd -y")
+def httpd(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum install httpd -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
