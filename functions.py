@@ -4,38 +4,41 @@ import subprocess as sp
 def query(cmd,id,args):
     if "date" in cmd:
         output = date(id,args)
+    elif "apache" in cmd or "server" in cmd or "httpd" in cmd and "install":
+        output =httpd(id,args)
+    
     return output
 
 
 #User Administration
-def create_user(cmd,id,args):
-    now=sp.getoutput(f"docker exec {id} useradd "+args)
+def create_user(username):
+    now=sp.getoutput("useradd "+username)
     return now
-def currentuser(cmd,id,args):
-    now=sp.getoutput(f"docker exec {id} whoami")
+def currentuser():
+    now=sp.getoutput("whoami")
     return now
-def createuser_nologin(cmd,id,args):
-    now=sp.getoutput(f"docker exec {id} useradd -s /sbin/sh "+args)   
+def createuser_nologin(username):
+    now=sp.getoutput("useradd -s /sbin/sh "+username)   
     return now 
-def users(cmd,id,args):
-    now=sp.getoutput(f"docker exec {id} cat /etc/shadow")
+def users():
+    now=sp.getoutput("cat /etc/shadow")
     return now
-def user_info(cmd,id,args):
+def user_info():
     try:
-        now=sp.getoutput(f"docker exec {id} cat /etc/passwd")
+        now=sp.getoutput("cat /etc/passwd")
         return now
     except:
         msg="*****Access Denied !!*****You must be the root user to perform this action*****"
-        now=sp.getoutput(f"docker exec {id} echo "+msg)
+        now=sp.getoutput("echo "+msg)
         return now
 
-def login_as_user(cmd,id,args):
+def login_as_user(username):
     try:
-        now=sp.getoutput(f"docker exec {id} su "+args)
+        now=sp.getoutput("su "+username)
         return now
     except:
         msg="*****User does not exist or the user has no Shell*****"
-        now=sp.getoutput(f"docker exec {id} echo "+msg)
+        now=sp.getoutput("echo "+msg)
         return now
     
     
@@ -92,8 +95,8 @@ def list_dir(path):
     return msg
 
 #Installation and Uninstallation of packages
-def httpd():
-    o=sp.getoutput("sudo yum install httpd -y")
+def httpd(id,args):
+    o=sp.getoutput(f"docker exec {id} sudo yum install httpd -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
