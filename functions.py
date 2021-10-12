@@ -1,7 +1,7 @@
 import os
 from subprocess import getstatusoutput as spo
 import subprocess as sp
-def query(cmd):
+def query(cmd,id):
     if "date" in cmd:
         op = date()
     return op

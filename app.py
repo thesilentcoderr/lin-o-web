@@ -1,6 +1,7 @@
 from flask import Flask, render_template,request,json,url_for,session,flash,redirect
 from flask_mysqldb import MySQL 
 import os
+from subprocess import getstatusoutput as spo
 from werkzeug.utils import  secure_filename
 from werkzeug.security import generate_password_hash as gen, check_password_hash as check
 import functions
@@ -35,7 +36,7 @@ def login():
         email = form['email']
         password = form['pass']
         cur = mysql.connection.cursor()
-        users = cur.execute("SELECT * FROM user WHERE email_id=%s;", ([email]))
+        users = cur.execute("SELECT * FROM users WHERE email_id=%s;", ([email]))
         if users > 0:
             user = cur.fetchone()
             pass_check = check(user[3], password)
@@ -53,7 +54,7 @@ def login():
             flash('User Does Not Exist!! Please Enter Valid Username.', 'danger')
             return render_template('login.html')
         cur.close()
-        return redirect('/')
+        return render_template('main_page.html')
     return render_template("login.html")
 
 @app.route("/user/register", methods=['GET', 'POST'])
@@ -62,35 +63,38 @@ def register():
         form = request.form
         name = form['name']
         email = form['email']
-        number = form['contact']
         password = gen(form['pass'])
         cur = mysql.connection.cursor()
-        users = cur.execute("SELECT * FROM user;")
+        users = cur.execute("SELECT * FROM users;")
         if users > 0:
             all_users = cur.fetchall()
             for user in all_users:
-                if (user[2] == email) or (user[5] == number):
+                if (user[2] == email) :
                     flash("User Already Exists!, Please Login...")
                     return redirect('/user/customer_login')
-        cur.execute("INSERT INTO user (name,email_id,number,password) values (%s,%s,%s,%s);", (name,email,number,password))
-        
+        # output = spo(f"docker container run --name {name} centos:latest")[1]
+        # os.system(f"docker stop {output}")
+        output = "this is docker id"
+        cur.execute("INSERT INTO users (name,email_id,password,docker_id) values (%s,%s,%s,%s);", (name,email,password,output))
         mysql.connection.commit()
         cur.close()
         return redirect('/user/login')
 
     return render_template("register.html")
 
-@app.route("/takecmd",methods=['GET','POST'])
-def takecmd():
-    if request.method == 'POST':
-        form = request.form
-        cmd = form['command']
-        output = functions.query(cmd)
-        return output
+@app.route("/takecmd/<id>",methods=['GET','POST'])
+def takecmd(id):
+    if 'id' in session:
+        if request.method == 'POST':
+            form = request.form
+            cmd = form['command']
+            output = functions.query(cmd,id)
+            return output
+        return redirect("")
 
 @app.route("/logout")
 def logout():
-    if 'user' in session:
+    if 'id' in session:
         session['logged_in'] = False 
         session.pop('full_name') 
         session.pop('id')

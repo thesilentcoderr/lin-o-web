@@ -41,15 +41,15 @@
       height: 100vh; background-size:cover;">
      <div style="text-align: center; padding-top: 30px;"><marquee class="marq"  behavior="alternate" direction="left"><h1>Welcome to <b> lin-o-web</b> !!</marquee></h1></div>
      <div class="container">
-        <form>
+        <form action="/user/login" method="POST" >
           <h3 style="text-align: center;">Enter into the Workspace !!</h3><hr>
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
