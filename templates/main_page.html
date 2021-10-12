@@ -146,7 +146,7 @@
             <a onclick="tail()">Tail of File</a>
             <a onclick="wc()">Word Count</a>
             <a onclick="sort()">Sort</a>
-            <a href="#" onclick="sleeptime()">Sleep</a>
+            <a onclick="sleeptime()">Sleep</a>
           </div>
         </div>
 
@@ -154,7 +154,7 @@
           <button class="dropbtn">File Management</button>
           <div class="dropdown-content">
             <a href="/takecmd/ls/0/{{session[id]}}">Show Files</a>
-            <a href="#" onclick="filename()">Create Empty Files</a>
+            <a onclick="touch()">Create Empty Files</a>
             <a href="/takecmd/hiddenfile/0/{{session[id]}}">See Files(Including Hidden Files)</a>
             <a onclick="mkdir()">Create Directory</a>
             <a onclick="rmdir()">Remove Directory</a>
@@ -164,12 +164,12 @@
         <div class="dropdown">
           <button class="dropbtn">User Management</button>
           <div class="dropdown-content">
-            <a href="#" onclick="uname()">Add User</a>
+            <a onclick="adduser()">Add User</a>
             <a href="/takecmd/id/0/{{session[id]}}">Current User Information</a>
-            <a href="#" onclick="uname()">Create User without Shell</a>
+            <a onclick="addusernoshell()">Create User without Shell</a>
             <a href="/takecmd/shadow/0/{{session[id]}}">See All Users</a>
             <a href="/takecmd/passwd/0/{{session[id]}}">User Information (Only For Admin)</a>
-            <a href="#" onclick="uname()">Login as User (User Must be Present)</a>
+            <a onclick="loginuser()">Login as User (User Must be Present)</a>
           </div>
         </div>
 
@@ -205,6 +205,11 @@
     </div>
   </body>
 </html>
+
+
+
+
+
 <script>
   function head() {
     var filename = prompt("Please enter file name with extension.");
@@ -223,20 +228,39 @@
     window.location.href = "/takecmd/sort/" + filename + "/{{session[id]}}"
   }
   function mkdir() {
-    var filename = prompt("Please enter file name with extension.");
+    var filename = prompt("Please enter folder name with extension.");
     window.location.href = "/takecmd/mkdir/" + filename + "/{{session[id]}}"
   }
   function rmdir() {
-    var filename = prompt("Please enter file name with extension.");
+    var filename = prompt("Please enter folder name with extension.");
     window.location.href = "/takecmd/rmdir/" + filename + "/{{session[id]}}"
   }
-
+  function touch() {
+    var filename = prompt("Please enter file name with extension.");
+    window.location.href = "/takecmd/touch/" + filename + "/{{session[id]}}"
+  }
   function sleeptime() {
     var time = prompt("Please enter time in ms for sleep command.");
+    window.location.href = "/takecmd/sleep/" + time + "/{{session[id]}}"
   }
-  function uname() {
+  function adduser() {
     var username = prompt("Please enter username.");
+    window.location.href = "/takecmd/adduser/" + username + "/{{session[id]}}"
   }
+  function addusernoshell() {
+    var username = prompt("Please enter username.");
+    window.location.href = "/takecmd/addusernologin/" + username + "/{{session[id]}}"
+  }
+  function loginuser() {
+    var username = prompt("Please enter username.");
+    window.location.href = "/takecmd/loginuser/" + username + "/{{session[id]}}"
+  }
+
+
+
+
+
+
   function foldername() {
     var foldername = prompt("Please enter folder name.");
   }
