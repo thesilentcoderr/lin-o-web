@@ -15,13 +15,13 @@ def query(cmd,id,args):
     elif "installjava" in cmd:
         output = java(id,args)
     elif "uninstallapache" in cmd:
-        output = uninstallhttpd(id,args)
+        output = uninstall_httpd(id,args)
     elif "uninstallpy3" in cmd:
         output = uninstall_python3(id,args)
     elif "uninstallpy2" in cmd:
         output = uninstall_python2(id,args)
     elif "uninstallgcc" in cmd:
-        output = uninstalll_c_compiler(id,args)
+        output = uninstall_c_compiler(id,args)
     elif "uninstalljava" in cmd:
         output = uninstall_java(id,args)
     elif "ifconfig" in cmd:
@@ -45,24 +45,24 @@ def query(cmd,id,args):
     elif "ls" in cmd:
         output = list_dir(id,args)
     elif "touch" in cmd:
-        output=create_file(id,arg)
+        output=create_file(id,args)
     elif "hiddenfile" in cmd:
         output = list_dir_h(id,args)
-     elif "mkdir" in cmd:
+    elif "mkdir" in cmd:
         output = create_dir(id,args)
-     elif "rmdir" in cmd:
+    elif "rmdir" in cmd:
         output = delete_dir(id,args)
-     elif "adduser" in cmd:
+    elif "adduser" in cmd:
         output = create_user(id,args)
-     elif "id" in cmd:
+    elif "id" in cmd:
         output = currentuser(id,args)
-     elif "addusernologin" in cmd:
+    elif "addusernologin" in cmd:
         output = createuser_nologin(id,args)
-     elif "shadow" in cmd:
+    elif "shadow" in cmd:
         output = users(id,args)
-     elif "passwd" in cmd:
+    elif "passwd" in cmd:
         output = user_info(id,args)
-     elif "loginuser" in cmd:
+    elif "loginuser" in cmd:
         output = login_as_user(id,args)
      
      
