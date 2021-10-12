@@ -4,8 +4,70 @@ import subprocess as sp
 def query(cmd,id,args):
     if "date" in cmd:
         output = date(id,args)
-    elif "apache" in cmd or "server" in cmd or "httpd" in cmd and "install":
+    elif "installapache" in cmd:
         output =httpd(id,args)
+    elif "installpy3" in cmd:
+        output = python3(id,args)
+    elif "installpy2" in cmd:
+        output = python2(id,args)
+    elif "installgcc" in cmd:
+        output = c_compiler(id,args)
+    elif "installjava" in cmd:
+        output = java(id,args)
+    elif "uninstallapache" in cmd:
+        output = uninstallhttpd(id,args)
+    elif "uninstallpy3" in cmd:
+        output = uninstall_python3(id,args)
+    elif "uninstallpy2" in cmd:
+        output = uninstall_python2(id,args)
+    elif "uninstallgcc" in cmd:
+        output = uninstalll_c_compiler(id,args)
+    elif "uninstalljava" in cmd:
+        output = uninstall_java(id,args)
+    elif "ifconfig" in cmd:
+        output = ifconfig()
+    elif "history" in cmd:
+        output = history(id,args)
+    elif "pwd" in cmd:
+        output = pwd(id,args)
+    elif "cal" in cmd:
+        output = cal(id,args)
+    elif "head" in cmd:
+        output = head(id,args)
+    elif "tail" in cmd:
+        output = tail(id,args)
+    elif "wc" in cmd:
+        output = wc(id,args)
+    elif "sort" in cmd:
+        output = sort(id,args)
+    elif "sleep" in cmd:
+        output = sleep(id,args)
+    elif "ls" in cmd:
+        output = list_dir(id,args)
+    elif "touch" in cmd:
+        output=create_file(id,arg)
+    elif "hiddenfile" in cmd:
+        output = list_dir_h(id,args)
+     elif "mkdir" in cmd:
+        output = create_dir(id,args)
+     elif "rmdir" in cmd:
+        output = delete_dir(id,args)
+     elif "adduser" in cmd:
+        output = create_user(id,args)
+     elif "id" in cmd:
+        output = currentuser(id,args)
+     elif "addusernologin" in cmd:
+        output = createuser_nologin(id,args)
+     elif "shadow" in cmd:
+        output = users(id,args)
+     elif "passwd" in cmd:
+        output = user_info(id,args)
+     elif "loginuser" in cmd:
+        output = login_as_user(id,args)
+     
+     
+     
+        
     
     return output
 
@@ -82,9 +144,27 @@ def create_dir(id,args):
         msg = "An error occured, Please try again !!"
     return msg
 
+def delete_dir(id,args):
+    try:
+        output = spo(f"docker exec {id} rmdir {args}")
+        if output and (output[0] == 0):
+            msg = "Folder/Directory Deleted successfully"
+    except:
+        msg = "An error occured, Please try again !!"
+    return msg
+
 def list_dir(id,args):
     try:
         output = spo(f"docker exec {id} ls -l")
+        if output and (output[0] == 0):
+            msg = output[1]
+    except:
+        msg = "An error occured, Please try again !!"
+    return msg
+
+def list_dir_h(id,args):
+    try:
+        output = spo(f"docker exec {id} ls -a")
         if output and (output[0] == 0):
             msg = output[1]
     except:
@@ -120,7 +200,7 @@ def c_compiler(id,args):
     else:
         print("Not able to install")
         
-def java(is,args):
+def java(id,args):
     o=sp.getoutput(f"docker exec {id} sudo yum install java -y")
     if "Complete" in o:
         print("Successfully Installed")
@@ -220,7 +300,7 @@ def id(id,args):
     return output
 
 
-def wc(id.args):
+def wc(id,args):
     try:
         output=sp.getoutput(f"docker exec {id} wc {args}")
     except:
