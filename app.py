@@ -1,7 +1,10 @@
 from flask import Flask, render_template,request,json,url_for,session,flash,redirect
-#from flask_mysqldb import MySQL 
-from flaskext.mysql import MySQL #installed currently pip install Flask-MySQL
+from flask_mysqldb import MySQL 
+#from flaskext.mysql import MySQL #installed currently pip install Flask-MySQL
+#import pymysql
+#import mysql.connector
 import os
+#from flask_mobility import Mobility
 from subprocess import getstatusoutput as spo
 from werkzeug.utils import  secure_filename
 from werkzeug.security import generate_password_hash as gen, check_password_hash as check
