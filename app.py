@@ -1,5 +1,6 @@
 from flask import Flask, render_template,request,json,url_for,session,flash,redirect
-from flask_mysqldb import MySQL 
+#from flask_mysqldb import MySQL 
+from flaskext.mysql import MySQL #installed currently pip install Flask-MySQL
 import os
 from subprocess import getstatusoutput as spo
 from werkzeug.utils import  secure_filename
