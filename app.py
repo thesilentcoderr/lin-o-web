@@ -72,9 +72,8 @@ def register():
                 if (user[2] == email) :
                     flash("User Already Exists!, Please Login...")
                     return redirect('/user/customer_login')
-        # output = spo(f"docker container run --name {name} centos:latest")[1]
-        # os.system(f"docker stop {output}")
-        output = "this is docker id"
+        output = spo(f"docker container run --name {name} centos:latest")[1]
+        os.system(f"docker stop {output}")
         cur.execute("INSERT INTO users (name,email_id,password,docker_id) values (%s,%s,%s,%s);", (name,email,password,output))
         mysql.connection.commit()
         cur.close()
@@ -85,11 +84,10 @@ def register():
 @app.route("/takecmd/<cmd>/<args>/<id>",methods=['GET','POST'])
 def takecmd(id,cmd,args):
     if 'id' in session and session['id'] == id:
-        if request.method == 'POST':
-            # form = request.form
-            # cmd = form['command']
-            output = functions.query(cmd,id,args)
-            return render_template("main_page.html",output=output)
+        # form = request.form
+        # cmd = form['command']
+        output = functions.query(cmd,id,args)
+        return render_template("main_page.html",output=output)
 
 @app.route("/logout")
 def logout():
