@@ -44,6 +44,7 @@ def login():
                 session['logged_in'] = True
                 session['full_name'] = user[4]
                 session['id'] = user[1]
+                print(session['id'])
                 flash(f"Welcome {session['full_name']}!! Your Login is Successful", 'success')
             else:
                 cur.close()
@@ -84,8 +85,6 @@ def register():
 @app.route("/takecmd/<cmd>/<args>/<id>",methods=['GET','POST'])
 def takecmd(id,cmd,args):
     if 'id' in session and session['id'] == id:
-        # form = request.form
-        # cmd = form['command']
         output = functions.query(cmd,id,args)
         return render_template("main_page.html",output=output)
 
