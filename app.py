@@ -84,9 +84,8 @@ def register():
 
 @app.route("/takecmd/<cmd>/<args>",methods=['GET','POST'])
 def takecmd(id,cmd,args):
-        # form = request.form
-        # cmd = form['command']
-        output = functions.query(cmd,id=0,args)
+    if 'id' in session and session['id'] == id:
+        output = functions.query(cmd,id,args)
         return render_template("main_page.html",output=output)
 
 @app.route("/logout")
