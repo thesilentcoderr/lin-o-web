@@ -44,6 +44,7 @@ def login():
                 session['logged_in'] = True
                 session['full_name'] = user[4]
                 session['id'] = user[1]
+		print(session['id'])
                 flash(f"Welcome {session['full_name']}!! Your Login is Successful", 'success')
             else:
                 cur.close()
@@ -86,12 +87,11 @@ def register():
 
     return render_template("register.html")
 
-@app.route("/takecmd/<cmd>/<args>/<id>",methods=['GET','POST'])
+@app.route("/takecmd/<cmd>/<args>",methods=['GET','POST'])
 def takecmd(id,cmd,args):
-    if 'id' in session and session['id'] == id:
         # form = request.form
         # cmd = form['command']
-        output = functions.query(cmd,id,args)
+        output = functions.query(cmd,id=0,args)
         return render_template("main_page.html",output=output)
 
 @app.route("/logout")
@@ -179,7 +179,7 @@ def register():
                 if (user[2] == email) :
                     flash("User Already Exists!, Please Login...")
                     return redirect('/user/customer_login')
-        output = spo(f"podman container run --name {email} sron13/lin_o_web")[1]
+        output = spo(f"podman container run --name {name} docker.io/sron13/lin_o_web")[1]
         os.system(f"podman stop {output}")
         cur.execute("INSERT INTO users (name,email_id,password,docker_id) values (%s,%s,%s,%s);", (name,email,password,output))
         mysql.connection.commit()
@@ -188,13 +188,13 @@ def register():
 
     return render_template("register.html")
 
-@app.route("/takecmd/<cmd>/<args>/<id>",methods=['GET','POST'])
-def takecmd(id,cmd,args):
-    if 'id' in session and session['id'] == id:
+@app.route("/takecmd/<cmd>/<args>",methods=['GET','POST'])
+def takecmd(cmd,args):
         # form = request.form
         # cmd = form['command']
-        output = functions.query(cmd,id,args)
-        return render_template("main_page.html",output=output)
+	id=0
+	output = functions.query(cmd,id,args)
+	return render_template("main_page.html",output=output)
 
 @app.route("/logout")
 def logout():

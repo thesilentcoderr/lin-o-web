@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="img/jpg" href="namepic.jpg" />
+    <link rel="icon" type="img/jpg"  />
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -137,11 +137,11 @@
         <div class="dropdown">
           <button class="dropbtn">Basic Linux Commands</button>
           <div class="dropdown-content">
-            <a href="/takecmd/date/0/{{session[id]}}">Date</a>
-            <a href="/takecmd/ifconfig/0/{{session[id]}}">IP Address</a>
-            <a href="/takecmd/history/0/{{session[id]}}">History</a>
-            <a href="/takecmd/pwd/0/{{session[id]}}">Present Working Directory</a>
-            <a href="/takecmd/cal/0/{{session[id]}}">Calendar</a>
+            <a href="/takecmd/date/0">Date</a>
+            <a href="/takecmd/ifconfig/0">IP Address</a>
+            <a href="/takecmd/history/0">History</a>
+            <a href="/takecmd/pwd/0">Present Working Directory</a>
+            <a href="/takecmd/cal/0">Calendar</a>
             <a onclick="head()">Head of File</a>
             <a onclick="tail()">Tail of File</a>
             <a onclick="wc()">Word Count</a>
@@ -153,9 +153,9 @@
         <div class="dropdown">
           <button class="dropbtn">File Management</button>
           <div class="dropdown-content">
-            <a href="/takecmd/ls/0/{{session[id]}}">Show Files</a>
+            <a href="/takecmd/ls/0">Show Files</a>
             <a onclick="touch()">Create Empty Files</a>
-            <a href="/takecmd/hiddenfile/0/{{session[id]}}">See Files(Including Hidden Files)</a>
+            <a href="/takecmd/hiddenfile/0">See Files(Including Hidden Files)</a>
             <a onclick="mkdir()">Create Directory</a>
             <a onclick="rmdir()">Remove Directory</a>
           </div>
@@ -165,10 +165,10 @@
           <button class="dropbtn">User Management</button>
           <div class="dropdown-content">
             <a onclick="adduser()">Add User</a>
-            <a href="/takecmd/id/0/{{session[id]}}">Current User Information</a>
+            <a href="/takecmd/id/0">Current User Information</a>
             <a onclick="addusernoshell()">Create User without Shell</a>
-            <a href="/takecmd/shadow/0/{{session[id]}}">See All Users</a>
-            <a href="/takecmd/passwd/0/{{session[id]}}">User Information (Only For Admin)</a>
+            <a href="/takecmd/shadow/0">See All Users</a>
+            <a href="/takecmd/passwd/0">User Information (Only For Admin)</a>
             <a onclick="loginuser()">Login as User (User Must be Present)</a>
           </div>
         </div>
@@ -176,16 +176,16 @@
         <div class="dropdown">
           <button class="dropbtn">Package Installation</button>
           <div class="dropdown-content">
-            <a href="/takecmd/installapache/0/{{session[id]}}">Install Apache Web Server</a>
-            <a href="/takecmd/installpy3/0/{{session[id]}}">Install Python3</a>
-            <a href="/takecmd/installpy2/0/{{session[id]}}">Install Python2</a>
-            <a href="/takecmd/installgcc/0/{{session[id]}}">Install C Compiler</a>
-            <a href="/takecmd/installjava/0/{{session[id]}}">Install Java</a>
-            <a href="/takecmd/uninstallapache/0/{{session[id]}}">Uninstall Apache Web Server</a>
-            <a href="/takecmd/uninstallpy3/0/{{session[id]}}">Uninstall Python3</a>
-            <a href="/takecmd/uninstallpy2/0/{{session[id]}}">Uninstall Python2</a>
-            <a href="/takecmd/uninstallgcc/0/{{session[id]}}">Uninstall C Compiler</a>
-            <a href="/takecmd/uninstalljava/0/{{session[id]}}">Uninstall Java</a>
+            <a href="/takecmd/installapache/0">Install Apache Web Server</a>
+            <a href="/takecmd/installpy3/0">Install Python3</a>
+            <a href="/takecmd/installpy2/0">Install Python2</a>
+            <a href="/takecmd/installgcc/0">Install C Compiler</a>
+            <a href="/takecmd/installjava/0">Install Java</a>
+            <a href="/takecmd/uninstallapache/0">Uninstall Apache Web Server</a>
+            <a href="/takecmd/uninstallpy3/0">Uninstall Python3</a>
+            <a href="/takecmd/uninstallpy2/0">Uninstall Python2</a>
+            <a href="/takecmd/uninstallgcc/0">Uninstall C Compiler</a>
+            <a href="/takecmd/uninstalljava/0">Uninstall Java</a>
           </div>
         </div>
         <br /><br /><br />
@@ -213,47 +213,47 @@
 <script>
   function head() {
     var filename = prompt("Please enter file name with extension.");
-    window.location.href = "/takecmd/head/" + filename + "/{{session[id]}}"
+    window.location.href = "/takecmd/head/" + filename 
   }
   function tail() {
     var filename = prompt("Please enter file name with extension.");
-    window.location.href = "/takecmd/tail/" + filename + "/{{session[id]}}"
+    window.location.href = "/takecmd/tail/" + filename 
   }
   function wc() {
     var filename = prompt("Please enter file name with extension.");
-    window.location.href = "/takecmd/wc/" + filename + "/{{session[id]}}"
+    window.location.href = "/takecmd/wc/" + filename 
   }
   function sort() {
     var filename = prompt("Please enter file name with extension.");
-    window.location.href = "/takecmd/sort/" + filename + "/{{session[id]}}"
+    window.location.href = "/takecmd/sort/" + filename 
   }
   function mkdir() {
     var filename = prompt("Please enter folder name with extension.");
-    window.location.href = "/takecmd/mkdir/" + filename + "/{{session[id]}}"
+    window.location.href = "/takecmd/mkdir/" + filename 
   }
   function rmdir() {
     var filename = prompt("Please enter folder name with extension.");
-    window.location.href = "/takecmd/rmdir/" + filename + "/{{session[id]}}"
+    window.location.href = "/takecmd/rmdir/" + filename 
   }
   function touch() {
     var filename = prompt("Please enter file name with extension.");
-    window.location.href = "/takecmd/touch/" + filename + "/{{session[id]}}"
+    window.location.href = "/takecmd/touch/" + filename 
   }
   function sleeptime() {
     var time = prompt("Please enter time in ms for sleep command.");
-    window.location.href = "/takecmd/sleep/" + time + "/{{session[id]}}"
+    window.location.href = "/takecmd/sleep/" + time 
   }
   function adduser() {
     var username = prompt("Please enter username.");
-    window.location.href = "/takecmd/adduser/" + username + "/{{session[id]}}"
+    window.location.href = "/takecmd/adduser/" + username 
   }
   function addusernoshell() {
     var username = prompt("Please enter username.");
-    window.location.href = "/takecmd/addusernologin/" + username + "/{{session[id]}}"
+    window.location.href = "/takecmd/addusernologin/" + username 
   }
   function loginuser() {
     var username = prompt("Please enter username.");
-    window.location.href = "/takecmd/loginuser/" + username + "/{{session[id]}}"
+    window.location.href = "/takecmd/loginuser/" + username 
   }
 
 
@@ -265,3 +265,4 @@
     var foldername = prompt("Please enter folder name.");
   }
 </script>
+
