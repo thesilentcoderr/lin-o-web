@@ -73,13 +73,8 @@ def register():
                 if (user[2] == email) :
                     flash("User Already Exists!, Please Login...")
                     return redirect('/user/customer_login')
-<<<<<<< HEAD
         output = spo(f"docker container run --name {name} docker.io/sron13/lin_o_web")[1]
         os.system(f"docker stop {output}")
-=======
-        output = spo(f"podman container run --name {email} sron13/lin_o_web")[1]
-        os.system(f"podman stop {output}")
->>>>>>> b536dd180241a4f3727e38ee7c152c732b2ff4af
         cur.execute("INSERT INTO users (name,email_id,password,docker_id) values (%s,%s,%s,%s);", (name,email,password,output))
         mysql.connection.commit()
         cur.close()
