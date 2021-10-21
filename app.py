@@ -44,7 +44,7 @@ def login():
                 session['logged_in'] = True
                 session['full_name'] = user[4]
                 session['id'] = user[1]
-                print(session['id'])
+		print(session['id'])
                 flash(f"Welcome {session['full_name']}!! Your Login is Successful", 'success')
             else:
                 cur.close()
@@ -74,7 +74,7 @@ def register():
                     flash("User Already Exists!, Please Login...")
                     return redirect('/user/customer_login')
         output = spo(f"docker container run --name {email} sron13/lin_o_web")[1]
-        os.system(f"docekr stop {output}")
+        os.system(f"docker stop {output}")
         cur.execute("INSERT INTO users (name,email_id,password,docker_id) values (%s,%s,%s,%s);", (name,email,password,output))
         mysql.connection.commit()
         cur.close()
@@ -82,7 +82,7 @@ def register():
 
     return render_template("register.html")
 
-@app.route("/takecmd/<cmd>/<args>/<id>",methods=['GET','POST'])
+@app.route("/takecmd/<cmd>/<args>",methods=['GET','POST'])
 def takecmd(id,cmd,args):
     if 'id' in session and session['id'] == id:
         output = functions.query(cmd,id,args)
