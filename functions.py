@@ -74,27 +74,27 @@ def query(cmd,id,args):
 
 #User Administration
 def create_user(id,args):
-    now=sp.getoutput(f"podman exec 920dfe35cd85 useradd {args}")
+    now=sp.getoutput(f"docker exec {id} useradd {args}")
     return now
 
 
 def currentuser(id,args):
-    now=sp.getoutput(f"podman exec 920dfe35cd85 whoami")
+    now=sp.getoutput(f"docker exec {id} whoami")
     return now
 
 
 def createuser_nologin(id,args):
-    now=sp.getoutput(f"podman exec 920dfe35cd85 useradd -s /sbin/sh {args}")   
+    now=sp.getoutput(f"docker exec {id} useradd -s /sbin/sh {args}")   
     return now 
 
 
 def users(id,args):
-    now=sp.getoutput(f"podman exec 920dfe35cd85 cat /etc/shadow")
+    now=sp.getoutput(f"docker exec {id} cat /etc/shadow")
     return now
 
 def user_info(id,args):
     try:
-        now=sp.getoutput(f"podman exec 920dfe35cd85 cat /etc/passwd")
+        now=sp.getoutput(f"docker exec {id} cat /etc/passwd")
         return now
     except:
         msg="*****Access Denied !!*****You must be the root user to perform this action*****"
@@ -103,7 +103,7 @@ def user_info(id,args):
     
 def login_as_user(id,args):
     try:
-        now=sp.getoutput(f"podman exec 920dfe35cd85 su {args}")
+        now=sp.getoutput(f"docker exec {id} su {args}")
         return now
     except:
         msg="*****User does not exist or the user has no Shell*****"
@@ -116,7 +116,7 @@ def login_as_user(id,args):
 # File System
 def show_file(id,args):
     try:
-        output = spo(f"podman exec 920dfe35cd85 cat {args}")
+        output = spo(f"docker exec {id} cat {args}")
         if output and (output[0] == 0):
             content = output[1]
         else:
@@ -128,7 +128,7 @@ def show_file(id,args):
 
 def create_file(id,args):
     try:
-        output = spo(f"podman exec 920dfe35cd85 touch {args}")
+        output = spo(f"docker exec {id} touch {args}")
         if output and (output[0] == 0):
             msg = "File Created successfully"
     except:
@@ -137,7 +137,7 @@ def create_file(id,args):
 
 def create_dir(id,args):
     try:
-        output = spo(f"podman exec 920dfe35cd85 mkdir {args}")
+        output = spo(f"docker exec {id} mkdir {args}")
         if output and (output[0] == 0):
             msg = "Folder/Directory Created successfully"
     except:
@@ -146,7 +146,7 @@ def create_dir(id,args):
 
 def delete_dir(id,args):
     try:
-        output = spo(f"podman exec 920dfe35cd85 rmdir {args}")
+        output = spo(f"docker exec {id} rmdir {args}")
         if output and (output[0] == 0):
             msg = "Folder/Directory Deleted successfully"
     except:
@@ -155,7 +155,7 @@ def delete_dir(id,args):
 
 def list_dir(id,args):
     try:
-        output = spo(f"podman exec 920dfe35cd85 ls -l")
+        output = spo(f"docker exec {id} ls -l")
         if output and (output[0] == 0):
             msg = output[1]
     except:
@@ -164,7 +164,7 @@ def list_dir(id,args):
 
 def list_dir_h(id,args):
     try:
-        output = spo(f"podman exec 920dfe35cd85 ls -a")
+        output = spo(f"docker exec {id} ls -a")
         if output and (output[0] == 0):
             msg = output[1]
     except:
@@ -173,70 +173,70 @@ def list_dir_h(id,args):
 
 #Installation and Uninstallation of packages
 def httpd(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum install httpd -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum install httpd -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")
         
 def python3(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum install python3 -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum install python3 -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")        
    
 def python2(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum install python2 -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum install python2 -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")    
        
 def c_compiler(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum install gcc -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum install gcc -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")
         
 def java(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum install java -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum install java -y")
     if "Complete" in o:
         print("Successfully Installed")
     else:
         print("Not able to install")
 #Uninstallation
 def uninstall_httpd(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum remove httpd -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum remove httpd -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
         print("Not able to uninstall")
         
 def uninstall_python3(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum remove python3 -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum remove python3 -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
         print("Not able to uninstall")        
    
 def uninstall_python2(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum remove python2 -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum remove python2 -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
         print("Not able to uninstall")    
        
 def uninstall_c_compiler(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum remove gcc -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum remove gcc -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
         print("Not able to uninstall")
         
 def uninstall_java(id,args):
-    o=sp.getoutput(f"podman exec 920dfe35cd85 sudo yum remove -y")
+    o=sp.getoutput(f"docker exec {id} sudo yum remove -y")
     if "Complete" in o:
         print("Successfully Uninstalled")
     else:
@@ -247,7 +247,7 @@ def uninstall_java(id,args):
         
  #Baisc Linux commands
 def date(id,args):
-    now = spo(f"podman exec 920dfe35cd85 date")
+    now = spo(f"docker exec {id} date")
     return now
 
 
@@ -257,23 +257,23 @@ def ifconfig():
 
                 
 def history(id,config):
-    output=sp.getoutput(f"podman exec 920dfe35cd85 history")
+    output=sp.getoutput(f"docker exec {id} history")
     return output
         
 
 def pwd(id,config):
-    output=sp.getoutput(f"podman exec 920dfe35cd85 pwd")
+    output=sp.getoutput(f"docker exec {id} pwd")
     return output
     
     
 def cal(id,config):
-     output=sp.getoutput(f"podman exec 920dfe35cd85 cal")
+     output=sp.getoutput(f"docker exec {id} cal")
      return output
     
  #prompts for y/n
 def rm_file(id,args):
     try:
-        output=sp.getoutput(f"podman exec 920dfe35cd85 rm {args}")
+        output=sp.getoutput(f"docker exec {id} rm {args}")
     except:
         output="rm: cannot remove '{args}': No such file or directory"      
     return output   
@@ -281,7 +281,7 @@ def rm_file(id,args):
         
 def head(id,args):
     try:
-        output=sp.getoutput(f"podman exec 920dfe35cd85 head {args}")
+        output=sp.getoutput(f"docker exec {id} head {args}")
     except:
         output="head: cannot open '{args}' for reading: No such file or directory"
     return output   
@@ -289,20 +289,20 @@ def head(id,args):
     
 def tail(id,args):
     try:
-        output=sp.getoutput(f"podman exec 920dfe35cd85 tail {args}")
+        output=sp.getoutput(f"docker exec {id} tail {args}")
     except:
         output="tail: cannot open '{args}' for reading: No such file or directory"
     return output   
 
 
 def id(id,args):
-    output=sp.getoutput(f"podman exec 920dfe35cd85 id")
+    output=sp.getoutput(f"docker exec {id} id")
     return output
 
 
 def wc(id,args):
     try:
-        output=sp.getoutput(f"podman exec 920dfe35cd85 wc {args}")
+        output=sp.getoutput(f"docker exec {id} wc {args}")
     except:
         output="wc: {args}: No such file or directory"
     return output   
@@ -310,12 +310,12 @@ def wc(id,args):
 
 def sort(id,args):
     try:
-        output=sp.getoutput(f"podman exec 920dfe35cd85 sort {args}")
+        output=sp.getoutput(f"docker exec {id} sort {args}")
     except:
         output="sort: cannot read: {args}: No such file or directory"
     return output   
 
 
 def sleep(id,args):
-    output=sp.getoutput(f"podman exec 920dfe35cd85 sleep {args}")
+    output=sp.getoutput(f"docker exec {id} sleep {args}")
     return output
