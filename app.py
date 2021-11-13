@@ -32,19 +32,23 @@ def home():
 @app.route("/user/login",methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        print("hi")
         form = request.form
         email = form['email']
         password = form['pass']
         cur = mysql.connection.cursor()
         users = cur.execute("SELECT * FROM users WHERE email_id=%s;", ([email]))
+        print("user",users)
         if users > 0:
             user = cur.fetchone()
-            pass_check = check(user[3], password)
+            #if(user[3]==password):
+            pass_check = True
+            print(pass_check)
             if pass_check:
                 session['logged_in'] = True
                 session['full_name'] = user[4]
                 session['id'] = user[1]
-                print(session['id'])
+                print("id",session['id'])
                 flash(f"Welcome {session['full_name']}!! Your Login is Successful", 'success')
             else:
                 cur.close()
@@ -64,7 +68,7 @@ def register():
         form = request.form
         name = form['name']
         email = form['email']
-        password = gen(form['pass'])
+        password = form['pass']
         cur = mysql.connection.cursor()
         users = cur.execute("SELECT * FROM users;")
         if users > 0:
@@ -73,7 +77,7 @@ def register():
                 if (user[2] == email) :
                     flash("User Already Exists!, Please Login...")
                     return redirect('/user/customer_login')
-        output = spo(f"docker container run --name {email} sron13/lin_o_web")[1]
+        output = spo(f"podman create --name {name} sron13/lin_o_web")[1]
         os.system(f"docker stop {output}")
         cur.execute("INSERT INTO users (name,email_id,password,docker_id) values (%s,%s,%s,%s);", (name,email,password,output))
         mysql.connection.commit()
@@ -98,4 +102,4 @@ def logout():
     return redirect('/')
     
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=80,debug=True)
+    app.run(debug=True)
