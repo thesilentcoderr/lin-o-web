@@ -44,7 +44,7 @@ def login():
                 session['logged_in'] = True
                 session['full_name'] = user[4]
                 session['id'] = user[1]
-		print(session['id'])
+                print(session['id'])
                 flash(f"Welcome {session['full_name']}!! Your Login is Successful", 'success')
             else:
                 cur.close()
