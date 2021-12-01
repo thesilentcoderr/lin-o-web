@@ -263,7 +263,8 @@
   }
   function user_cmd()
   {
-    var user_cmd=document.getElementById("usercmd").innerHTML;
+    var user_cmd=document.getElementById("usercmd").value;
+    console.log(user_cmd)
     window.location.href = "/user_defined/" + user_cmd
   }
 
