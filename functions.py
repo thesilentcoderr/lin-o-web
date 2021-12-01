@@ -3,6 +3,7 @@ from subprocess import getstatusoutput as spo
 import subprocess as sp
 def query(cmd,id,args):
     if "date" in cmd:
+        print("Check date")
         output = date(id,args)
     elif "installapache" in cmd:
         output =httpd(id,args)
@@ -19,7 +20,7 @@ def query(cmd,id,args):
     elif "uninstallpy3" in cmd:
         output = uninstall_python3(id,args)
     elif "uninstallpy2" in cmd:
-        output = uninstall_python2(id,args)
+        output = uninstall_python3(id,args)
     elif "uninstallgcc" in cmd:
         output = uninstall_c_compiler(id,args)
     elif "uninstalljava" in cmd:
@@ -64,12 +65,12 @@ def query(cmd,id,args):
         output = user_info(id,args)
     elif "loginuser" in cmd:
         output = login_as_user(id,args)
-     
-     
-     
-        
-    
+    else:
+        output = "No command found"
+    print("Returning output")
     return output
+
+
 
 
 #User Administration
@@ -173,81 +174,83 @@ def list_dir_h(id,args):
 
 #Installation and Uninstallation of packages
 def httpd(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum install httpd -y")
+    o=sp.getoutput(f"docker exec {id} yum install httpd -y")
     if "Complete" in o:
-        print("Successfully Installed")
+        return "Successfully Installed"
     else:
-        print("Not able to install")
+        return "Not able to install"
         
 def python3(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum install python3 -y")
+    o=sp.getoutput(f"docker exec {id} yum install python3 -y")
     if "Complete" in o:
-        print("Successfully Installed")
+        return "Successfully Installed"
     else:
-        print("Not able to install")        
+        return "Not able to install"        
    
 def python2(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum install python2 -y")
+    o=sp.getoutput(f"docker exec {id} yum install python2 -y")
     if "Complete" in o:
-        print("Successfully Installed")
+        return "Successfully Installed"
     else:
-        print("Not able to install")    
+        return "Not able to install"    
        
 def c_compiler(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum install gcc -y")
+    o=sp.getoutput(f"docker exec {id} yum install gcc -y")
     if "Complete" in o:
-        print("Successfully Installed")
+        return "Successfully Installed"
     else:
-        print("Not able to install")
+        return "Not able to install"
         
 def java(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum install java -y")
+    o=sp.getoutput(f"docker exec {id} yum install java -y")
     if "Complete" in o:
-        print("Successfully Installed")
+        return "Successfully Installed"
     else:
-        print("Not able to install")
+        return "Not able to install"
 #Uninstallation
 def uninstall_httpd(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum remove httpd -y")
+    o=sp.getoutput(f"docker exec {id} yum remove httpd -y")
     if "Complete" in o:
-        print("Successfully Uninstalled")
+        return "Successfully Uninstalled"
     else:
-        print("Not able to uninstall")
+        return "Not able to uninstall"
         
 def uninstall_python3(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum remove python3 -y")
+    o=sp.getoutput(f"docker exec {id} yum remove python3 -y")
     if "Complete" in o:
-        print("Successfully Uninstalled")
+        return "Successfully Uninstalled"
     else:
-        print("Not able to uninstall")        
+        return "Not able to uninstall"        
    
 def uninstall_python2(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum remove python2 -y")
+    o=sp.getoutput(f"docker exec {id} yum remove python2 -y")
     if "Complete" in o:
-        print("Successfully Uninstalled")
+        return "Successfully Uninstalled"
     else:
-        print("Not able to uninstall")    
+        return "Not able to uninstall"    
        
 def uninstall_c_compiler(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum remove gcc -y")
+    o=sp.getoutput(f"docker exec {id} yum remove gcc -y")
     if "Complete" in o:
-        print("Successfully Uninstalled")
+        return "Successfully Uninstalled"
     else:
-        print("Not able to uninstall")
+        return "Not able to uninstall"
         
 def uninstall_java(id,args):
-    o=sp.getoutput(f"docker exec {id} sudo yum remove -y")
+    o=sp.getoutput(f"docker exec {id} yum remove -y")
     if "Complete" in o:
-        print("Successfully Uninstalled")
+        return "Successfully Uninstalled"
     else:
-        print("Not able to uninstall")
+        return "Not able to uninstall"
       
         
         
         
  #Baisc Linux commands
 def date(id,args):
-    now = spo(f"docker exec {id} date")
+    print("In date")
+    now = sp.getoutput("date")
+    print("Date",now)
     return now
 
 
@@ -319,3 +322,9 @@ def sort(id,args):
 def sleep(id,args):
     output=sp.getoutput(f"docker exec {id} sleep {args}")
     return output
+
+def user_defined(id,cmd):
+    print("Function user def",cmd)
+    output=sp.getoutput(f"docker exec {id} {cmd}")
+    print("Fun ouptut",output)
+    return output 

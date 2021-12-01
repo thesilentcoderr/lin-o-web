@@ -95,6 +95,9 @@
       .dropdown:hover .dropbtn {
         background-color: #3e8e41;
       }
+	.texthead{
+	color: #f9f9f9;
+	}
     </style>
     <link
       rel="stylesheet"
@@ -106,7 +109,7 @@
       <br />
       <div class="row justify-content-center">
         <div class="col-12 col-md-12 col-lg-12">
-          <form class="card card-sm">
+          <form class="card card-sm" method="POST">
             <div class="card-body row no-gutters align-items-center">
               <div class="col-auto">
                 <i class="fas fa-search h4 text-body"></i>
@@ -116,13 +119,14 @@
                 <input
                   class="form-control form-control-lg form-control-borderless"
                   type="search"
-                  placeholder="Search Usecase"
+                  placeholder="Enter Command"
+                  id="usercmd"
                 />
               </div>
               <!--end of col-->
               <div class="col-auto">
-                <button class="btn btn-lg btn-success" type="submit">
-                  Search
+                <button class="btn btn-lg btn-success" type="submit" onclick="user_cmd()">
+                  Run
                 </button>
               </div>
               <!--end of col-->
@@ -189,7 +193,8 @@
           </div>
         </div>
         <br /><br /><br />
-        <div id="textarea">
+<center class="texthead"><h1>OUTPUT</h1></center>       
+ <div id="textarea">
           <textarea
             disabled
             id="output"
@@ -197,8 +202,9 @@
             rows="18"
             cols="173.75 %"
           >
-                        Your output will be displayed here.
-                        </textarea
+       
+               {{ output }}   
+      </textarea
           >
         </div>
       </div>
@@ -255,7 +261,11 @@
     var username = prompt("Please enter username.");
     window.location.href = "/takecmd/loginuser/" + username 
   }
-
+  function user_cmd()
+  {
+    var user_cmd=document.getElementById("usercmd").innerHTML;
+    window.location.href = "/user_defined/" + user_cmd
+  }
 
 
 
