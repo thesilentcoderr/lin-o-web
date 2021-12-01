@@ -33,19 +33,15 @@ def home():
 @app.route("/user/login",methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        print("hi")
         form = request.form
         email = form['email']
         password = form['pass']
         cur = mysql.connection.cursor()
         users = cur.execute("SELECT * FROM users WHERE email_id=%s;", ([email]))
-        print("user",users)
         if users > 0:
             user = cur.fetchone()
-            print(user)
             #if(user[3]==password):
             pass_check = True
-            print(pass_check)
             if pass_check:
                 session['logged_in'] = True
                 session['full_name'] = user[0]
