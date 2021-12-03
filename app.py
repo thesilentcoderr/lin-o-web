@@ -40,8 +40,7 @@ def login():
         users = cur.execute("SELECT * FROM users WHERE email_id=%s;", ([email]))
         if users > 0:
             user = cur.fetchone()
-            #if(user[3]==password):
-            pass_check = True
+            pass_check = check(user[2], password)
             if pass_check:
                 session['logged_in'] = True
                 session['full_name'] = user[0]
@@ -66,7 +65,7 @@ def register():
         form = request.form
         name = form['name']
         email = form['email']
-        password = form['pass']
+        password = gen(form['pass'])
         cur = mysql.connection.cursor()
         users = cur.execute("SELECT * FROM users;")
         if users > 0:
